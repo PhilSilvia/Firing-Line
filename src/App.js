@@ -1,7 +1,10 @@
 import "./App.css";
+import Homepage from "./layout/home";
 
 function App() {
-  return <h1>Welcome to the Firing Line!</h1>;
+  return (
+    <Homepage />
+  );
 }
 
 export default App;
