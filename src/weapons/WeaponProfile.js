@@ -1,5 +1,5 @@
 const { roll, compareStrengthToToughness } = require("./utils");
-//const Target = require("./Target");
+//const TargetProfile = require("./TargetProfile");
 
 class WeaponProfile {
     constructor(name = "", accuracy = 4, attacks = 2, strength = 4, ap = 0, damage = 1) {
@@ -58,9 +58,9 @@ class WeaponProfile {
 const boltrifle8 = new WeaponProfile("eight Bolt Rifles", 3, 16, 4, -1, 1);
 const meltagun2 = new WeaponProfile("two Meltaguns", 3, 2, 9, -4, 4);
 const overchargePlasma2 = new WeaponProfile("two overcharged Plasma Rifles", 3, 4, 8, -3, 2);
-const spaceMarine = new Target("Space Marine", 4, 3, 2);
-const terminator = new Target("Terminator", 5, 2, 3, 4);
-const termagant = new Target("Termagant", 3, 5, 1);
+const spaceMarine = new TargetProfile("Space Marine", 4, 3, 2);
+const terminator = new TargetProfile("Terminator", 5, 2, 3, 4);
+const termagant = new TargetProfile("Termagant", 3, 5, 1);
 
 const weapon = boltrifle8;
 const target = termagant;
