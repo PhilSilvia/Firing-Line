@@ -1,4 +1,4 @@
-const { roll, compareStrengthToToughness } = require("./utils");
+const { roll, compareStrengthToToughness } = require("../utils/utils");
 //const TargetProfile = require("./TargetProfile");
 
 class WeaponProfile {

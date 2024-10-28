@@ -22,9 +22,7 @@ function Homepage() {
             <h1>Welcome to the Firing Line!</h1>
             <div className="row">
                 <div className="col-5">
-                    <div className="container border mx-2 my-2 border-primary">
-                        <WeaponList weapons={weapons} setWeapons={setWeapons} />   
-                    </div>
+                    <WeaponList weapons={weapons} setWeapons={setWeapons} />   
                 </div>
                 <div className="col-1">
                     <div className="row">
@@ -35,9 +33,7 @@ function Homepage() {
                     </div>
                 </div>
                 <div className="col-5">
-                    <div className="container border mx-2 my-2 border-primary">
-                        <TargetList targets={targets} setTargets={setTargets} />   
-                    </div>
+                    <TargetList targets={targets} setTargets={setTargets} />   
                 </div>
             </div>
             <div className="row">
