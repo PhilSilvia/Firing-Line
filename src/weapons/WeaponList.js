@@ -3,17 +3,10 @@ import WeaponProfile from "./WeaponProfile";
 import WeaponView from "./WeaponView";
 
 // JSX Component that displays the list of available weapons
-function WeaponList({ weapons, setWeapons, weaponClickHandler }) {
-    // Static set of weapons for initial testing purposes. 
-    // This will later be populated by the user's input
-    const staticWeapons = [
-        new WeaponProfile("Boltgun", 3, 2, 4, 0, 1),
-        new WeaponProfile("Shoota", 5, 2, 4, 0, 1)
-    ];
+function WeaponList({ weapons, setWeapons, weaponClickHandler, weaponChangeHandler }) {
     // Create an array of WeaponView components from the array of weapons
-    //const weaponList = staticWeapons.map((weapon, index) =>
     const weaponList = weapons.map((weapon, index) =>
-        <WeaponView weapon={weapon} weaponId={index} clickHandler={weaponClickHandler}/>
+        <WeaponView weapon={weapon} weaponId={index} clickHandler={weaponClickHandler} changeHandler={weaponChangeHandler} />
     );
 
     // Returns the JSX for the component, which is a table featuring the WeaponView for each weapon in the list
@@ -24,6 +17,7 @@ function WeaponList({ weapons, setWeapons, weaponClickHandler }) {
                 <thead>
                     <th></th>
                     <th>Name</th>
+                    <th>Number</th>
                     <th>WS/BS</th>
                     <th>A</th>
                     <th>S</th>

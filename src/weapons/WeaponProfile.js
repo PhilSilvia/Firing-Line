@@ -2,8 +2,9 @@ const { roll, compareStrengthToToughness } = require("../utils/utils");
 //const TargetProfile = require("./TargetProfile");
 
 class WeaponProfile {
-    constructor(name = "", accuracy = 4, attacks = 2, strength = 4, ap = 0, damage = 1) {
+    constructor(name = "", quantity = 1, accuracy = 4, attacks = 2, strength = 4, ap = 0, damage = 1) {
         this.name = name;
+        this.quantity = quantity;
         this.accuracy = accuracy;
         this.attacks = attacks;
         this.strength = strength;
@@ -18,11 +19,12 @@ class WeaponProfile {
         const saveRolls = [];
         let chanceToSave = target.save - this.AP;
         chanceToSave = chanceToSave < target.invul ? chanceToSave : target.invul;
-        let wounds = 0;
+        let woundsInflicted = 0;
         let hitRoll = 0, woundRoll = 0, saveRoll = 0;
+        let hits = 0, wounds = 0, saves = 0;
         console.log(`Chance to wound is ${chanceToWound}+ and modified save is ${chanceToSave}+`);
         // For each attack
-        for (let i = 0; i < this.attacks; i++){
+        for (let i = 0; i < this.attacks*this.quantity; i++){
             hitRoll = roll();
             woundRoll = roll();
             saveRoll = roll();
@@ -31,17 +33,20 @@ class WeaponProfile {
             // Did we hit?
             hitRolls.push(hitRoll);
             if (hitRoll >= this.accuracy){
+                hits++;
                 // Did we wound?
                 console.log("hit and ")
                 woundRolls.push(woundRoll);
                 if (woundRoll >= chanceToWound){
+                    wounds++;
                     // Did the target save?
                     console.log("wounded, ");
                     saveRolls.push(saveRoll);
                     if (saveRoll < chanceToSave){
-                        wounds++;
+                        woundsInflicted++;
                         console.log("no save!\n");
                     } else {
+                        saves++;
                         console.log("but saved.\n");
                     }
                 } else {
@@ -52,13 +57,16 @@ class WeaponProfile {
             }
         }
         const woundPerKill = Math.ceil(target.wounds / this.damage);
-        const kills = Math.floor(wounds / woundPerKill);
-        const leftover = (wounds % woundPerKill) * this.damage;
+        const kills = Math.floor(woundsInflicted / woundPerKill);
+        const leftover = (woundsInflicted % woundPerKill) * this.damage;
         const damagedTarget = leftover > 0 ? target.wounds - leftover : 0;
         return {
             hitRolls, 
+            hits,
             woundRolls, 
-            saveRolls, 
+            wounds,
+            saveRolls,
+            saves, 
             kills, 
             chanceToWound,
             chanceToSave,

@@ -1,5 +1,6 @@
 import React from "react";
 
+// Quick dice code lookup table
 const dice = {
     1: 0x2680,
     2: 0x2681,
@@ -9,28 +10,44 @@ const dice = {
     6: 0x2685,
 };
 
+// Helper function to create a string of skulls, one per kill
 function makeSkullCount(kills){
+    // Initialize an empty array
     const killCount = [];
-    for (let i = 0; i < 10; i++)//kills; i++)
+    // Add a skull to the array for each kill
+    for (let i = 0; i < kills; i++)
         killCount.push(String.fromCharCode(0xD83D, 0xDC80));
+    // Joins the array of skulls together into a contiguous string
     const killString = killCount.join("");
+    // Return the string
     return killString;
 }
 
+// Helper function that makes a string of dice for the rolls generated
 function makeDice(rolls){
+    // Initialize an empty array
     const diceList = [];
+    // Add the appropriate die to the array for each roll
     for (let i = 0; i < rolls.length; i++)
         diceList.push(String.fromCharCode(dice[rolls[i]]));
+    // Join the array into a contigueous string
     const diceString = diceList.join("");
+    // Return the string
     return diceString;
 }
 
+// This component displays the results of the firing attempt
 function ResultsView({ results }) {
+    // Create a string of skulls for the kills scored
     const killString = makeSkullCount(results.kills);
+    // Create a string describing any leftover damage, if any
     const leftover = results.damagedTarget > 0 ? ` and one is left with ${results.damagedTarget} wound${results.damagedTarget > 1 ? 's' : ''}` : "";
-    const hits = makeDice(results.hitRolls);
-    const wounds = makeDice(results.woundRolls);
-    const saves = makeDice(results.saveRolls);
+    // Make a string of dice rolls for the hits, wounds, and saves
+    const hitDice = makeDice(results.hitRolls);
+    const woundDice = makeDice(results.woundRolls);
+    const saveDice = makeDice(results.saveRolls);
+
+    // Return the JSX for the component
     return (
         <div className="container border mx-2 my-2 border-primary">
             <div className="card">
@@ -50,12 +67,12 @@ function ResultsView({ results }) {
             <div className="card">
                 <div className="card-body">
                     <h4 className="card-title">Rolls</h4>
-                    <h5 className="card-subtitle">Hits: {hits.length}</h5>
-                    <p className="card-text">{hits}</p>
-                    <h5 className="card-subtitle">Wounds: {wounds.length}</h5>
-                    <p className="card-text">{wounds}</p>
-                    <h5 className="card-subtitle">Saves: {saves.length}</h5>
-                    <p className="card-text">{saves}</p>
+                    <h5 className="card-subtitle">Hits: {results.hits}</h5>
+                    <p className="card-text">{hitDice}</p>
+                    <h5 className="card-subtitle">Wounds: {results.wounds}</h5>
+                    <p className="card-text">{woundDice}</p>
+                    <h5 className="card-subtitle">Saves: {results.saves}</h5>
+                    <p className="card-text">{saveDice}</p>
                 </div>
             </div>
         </div>

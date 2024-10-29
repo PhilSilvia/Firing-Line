@@ -4,13 +4,7 @@ import TargetView from "./TargetView";
 
 // Component that displays the current list of available targets
 function TargetList({ targets, setTargets, targetClickHandler }) {
-    // Currently using a static list of targets for testing purposes.
-    // Later this will be populated by the user's input
-    const staticTargets = [
-        new TargetProfile("Space Marine", 4, 3, 2)
-    ];
-    // Creates an array of TargetView components from the array of targets
-    //const targetList = staticTargets.map((target, index) => 
+    // Creates an array of TargetView components from the array of targets 
     const targetList = targets.map((target, index) =>
         <TargetView target={target} targetId={index} clickHandler={targetClickHandler}/>
     );

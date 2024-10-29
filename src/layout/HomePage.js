@@ -25,8 +25,8 @@ function Homepage() {
 
     useEffect(() => {
         const staticWeapons = [
-            new WeaponProfile("Boltgun", 3, 2, 4, 0, 1),
-            new WeaponProfile("Shoota", 5, 2, 4, 0, 1)
+            new WeaponProfile("Boltgun", 8, 3, 2, 4, 0, 1),
+            new WeaponProfile("Shoota", 18, 5, 2, 4, 0, 1)
         ];
         setWeapons(staticWeapons);
         const staticTargets = [
