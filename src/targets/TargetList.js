@@ -1,16 +1,20 @@
 import React from "react";
-import { useState } from "react";
 import TargetProfile from "./TargetProfile";
 import TargetView from "./TargetView";
 
-function TargetList({ targets, setTargets }) {
+// Component that displays the current list of available targets
+function TargetList({ targets, setTargets, targetClickHandler }) {
+    // Currently using a static list of targets for testing purposes.
+    // Later this will be populated by the user's input
     const staticTargets = [
         new TargetProfile("Space Marine", 4, 3, 2)
     ];
-    const targetList = staticTargets.map((target) => 
-        <TargetView target={target} />
+    // Creates an array of TargetView components from the array of targets
+    const targetList = staticTargets.map((target, index) => 
+        <TargetView target={target} targetId={index} clickHandler={targetClickHandler}/>
     );
 
+    // Returns the JSX for the component, which is a table populated with TargetViews
     return (
         <div className="container border mx-2 my-2 border-primary">
             <h2>Targets</h2>
