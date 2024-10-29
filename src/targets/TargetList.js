@@ -10,7 +10,8 @@ function TargetList({ targets, setTargets, targetClickHandler }) {
         new TargetProfile("Space Marine", 4, 3, 2)
     ];
     // Creates an array of TargetView components from the array of targets
-    const targetList = staticTargets.map((target, index) => 
+    //const targetList = staticTargets.map((target, index) => 
+    const targetList = targets.map((target, index) =>
         <TargetView target={target} targetId={index} clickHandler={targetClickHandler}/>
     );
 

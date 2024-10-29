@@ -11,7 +11,8 @@ function WeaponList({ weapons, setWeapons, weaponClickHandler }) {
         new WeaponProfile("Shoota", 5, 2, 4, 0, 1)
     ];
     // Create an array of WeaponView components from the array of weapons
-    const weaponList = staticWeapons.map((weapon, index) =>
+    //const weaponList = staticWeapons.map((weapon, index) =>
+    const weaponList = weapons.map((weapon, index) =>
         <WeaponView weapon={weapon} weaponId={index} clickHandler={weaponClickHandler}/>
     );
 

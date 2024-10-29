@@ -1,9 +1,11 @@
 import React from "react";
-import { useState } from "react";
-import Results from "./results";
+import { useState, useEffect } from "react";
+import Results from "./ResultsView";
 import WeaponList from "../weapons/WeaponList";
 import TargetList from "../targets/TargetList";
 import ErrorAlert from "./ErrorAlert";
+import WeaponProfile from "../weapons/WeaponProfile";
+import TargetProfile from "../targets/TargetProfile";
 
 /**
  * Defines the homepage and its layout
@@ -14,12 +16,24 @@ function Homepage() {
     const [ weapons, setWeapons ] = useState([]);
     const [ targets, setTargets ] = useState([]);
     // State variable to track the results of the most recent attack simulation
-    const [ results, setResults ] = useState([]);
+    const [ results, setResults ] = useState(null);
     // State variables to track the currently selected weapon and target
     const [ currentWeaponNumber, setCurrentWeaponNumber ] = useState(-1);
     const [ currentTargetNumber, setCurrentTargetNumber ] = useState(-1);
     // State variables to keep track of the most recent error, if any
     const [ error, setError ] = useState(null);
+
+    useEffect(() => {
+        const staticWeapons = [
+            new WeaponProfile("Boltgun", 3, 2, 4, 0, 1),
+            new WeaponProfile("Shoota", 5, 2, 4, 0, 1)
+        ];
+        setWeapons(staticWeapons);
+        const staticTargets = [
+            new TargetProfile("Space Marine", 4, 3, 2)
+        ];
+        setTargets(staticTargets);
+    }, []);
 
     // Event handler for when the 'Fire!' button is clicked to initiate a simulation
     const fireButtonHandler = (e) => {
@@ -32,8 +46,15 @@ function Homepage() {
         } 
         // If we're good, let's go!
         else {
-            // Right now, we just clear the error
+            // We clear any current errors
             setError(null);
+            // Grab the current weapon and target
+            const currentWeapon = weapons[currentWeaponNumber];
+            const currentTarget = targets[currentTargetNumber];
+            // Fire the weapon at the target
+            const attackResults = currentWeapon.shootAt(currentTarget);
+            // Update the results
+            setResults(attackResults);
         }
     };
 
@@ -62,7 +83,7 @@ function Homepage() {
                         <img src="../../bolter.png" alt="A boltgun facing right" />
                     </div>
                     <div className="row">
-                        <button onClick={fireButtonHandler}>Fire!</button>
+                        <button type="button" className="btn btn-danger" onClick={fireButtonHandler}>Fire!</button>
                     </div>
                 </div>
                 <div className="col-5">
@@ -73,9 +94,7 @@ function Homepage() {
                 {error? <ErrorAlert error={error}/> : <></>}
             </div>
             <div className="row">
-                <div className="container border mx-2 my-2 border-primary">
-                    {results.length > 0? <Results results={results} /> : <></>}
-                </div>
+                {results ? <Results results={results} /> : <></>}
             </div>
         </main>
     )

@@ -13,6 +13,9 @@ class WeaponProfile {
 
     shootAt(target){
         const chanceToWound = compareStrengthToToughness(this.strength, target.toughness);
+        const hitRolls = [];
+        const woundRolls = [];
+        const saveRolls = [];
         let chanceToSave = target.save - this.AP;
         chanceToSave = chanceToSave < target.invul ? chanceToSave : target.invul;
         let wounds = 0;
@@ -20,19 +23,21 @@ class WeaponProfile {
         console.log(`Chance to wound is ${chanceToWound}+ and modified save is ${chanceToSave}+`);
         // For each attack
         for (let i = 0; i < this.attacks; i++){
-
             hitRoll = roll();
             woundRoll = roll();
             saveRoll = roll();
             console.log(`Shot #${i+1}: `)
             console.log(hitRoll, woundRoll, saveRoll);
             // Did we hit?
+            hitRolls.push(hitRoll);
             if (hitRoll >= this.accuracy){
                 // Did we wound?
                 console.log("hit and ")
+                woundRolls.push(woundRoll);
                 if (woundRoll >= chanceToWound){
                     // Did the target save?
                     console.log("wounded, ");
+                    saveRolls.push(saveRoll);
                     if (saveRoll < chanceToSave){
                         wounds++;
                         console.log("no save!\n");
@@ -50,7 +55,15 @@ class WeaponProfile {
         const kills = Math.floor(wounds / woundPerKill);
         const leftover = (wounds % woundPerKill) * this.damage;
         const damagedTarget = leftover > 0 ? target.wounds - leftover : 0;
-        return {kills, damagedTarget};
+        return {
+            hitRolls, 
+            woundRolls, 
+            saveRolls, 
+            kills, 
+            chanceToWound,
+            chanceToSave,
+            damagedTarget
+        };
     }
 }
 
