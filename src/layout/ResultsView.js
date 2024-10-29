@@ -11,7 +11,7 @@ const dice = {
 
 function makeSkullCount(kills){
     const killCount = [];
-    for (let i = 0; i < kills; i++)
+    for (let i = 0; i < 10; i++)//kills; i++)
         killCount.push(String.fromCharCode(0xD83D, 0xDC80));
     const killString = killCount.join("");
     return killString;
@@ -33,19 +33,31 @@ function ResultsView({ results }) {
     const saves = makeDice(results.saveRolls);
     return (
         <div className="container border mx-2 my-2 border-primary">
-            <h2>Results</h2>
-            <h4>{killString}</h4>
-            <p>You have killed {results.kills} {leftover}</p>
-            <h4>Chances</h4>
-            <p>Chance to wound: {results.chanceToWound}+</p>
-            <p>Chance to save: {results.chanceToSave}+</p>
-            <h4>Rolls</h4>
-            <h5>Hits: {hits.length}</h5>
-            <p>{hits}</p>
-            <h5>Wounds: {wounds.length}</h5>
-            <p>{wounds}</p>
-            <h5>Saves: {saves.length}</h5>
-            <p>{saves}</p>
+            <div className="card">
+                <div className="card-body">
+                    <h2 className="card-title">Results</h2>
+                    <h4 className="card-subtitle">{killString}</h4>
+                    <p className="card-text">You have killed {results.kills} {leftover}</p>
+                </div>
+            </div>
+            <div className="card">
+                <div className="card-body">
+                    <h4 className="card-title">Chances</h4>
+                    <p className="card-text">Chance to wound: {results.chanceToWound}+</p>
+                    <p className="card-text">Chance to save: {results.chanceToSave}+</p>
+                </div>
+            </div>
+            <div className="card">
+                <div className="card-body">
+                    <h4 className="card-title">Rolls</h4>
+                    <h5 className="card-subtitle">Hits: {hits.length}</h5>
+                    <p className="card-text">{hits}</p>
+                    <h5 className="card-subtitle">Wounds: {wounds.length}</h5>
+                    <p className="card-text">{wounds}</p>
+                    <h5 className="card-subtitle">Saves: {saves.length}</h5>
+                    <p className="card-text">{saves}</p>
+                </div>
+            </div>
         </div>
     );
 }
