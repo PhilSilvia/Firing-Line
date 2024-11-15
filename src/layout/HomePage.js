@@ -76,7 +76,7 @@ function Homepage() {
             <h1>Welcome to the Firing Line!</h1>
             <div className="row">
                 <div className="col-5">
-                    <WeaponList weapons={weapons} setWeapons={setWeapons} weaponClickHandler={weaponClickHandler} />   
+                    <WeaponList weapons={weapons} setWeapons={setWeapons} weaponClickHandler={weaponClickHandler} setError={setError} />   
                 </div>
                 <div className="col-1">
                     <div className="row">

@@ -1,9 +1,9 @@
 import React from "react";
-import WeaponProfile from "./WeaponProfile";
 import WeaponView from "./WeaponView";
+import NewWeaponForm from "./NewWeaponForm";
 
 // JSX Component that displays the list of available weapons
-function WeaponList({ weapons, setWeapons, weaponClickHandler, weaponChangeHandler }) {
+function WeaponList({ weapons, setWeapons, weaponClickHandler, weaponChangeHandler, setError }) {
     // Create an array of WeaponView components from the array of weapons
     const weaponList = weapons.map((weapon, index) =>
         <WeaponView weapon={weapon} weaponId={index} clickHandler={weaponClickHandler} changeHandler={weaponChangeHandler} />
@@ -28,6 +28,7 @@ function WeaponList({ weapons, setWeapons, weaponClickHandler, weaponChangeHandl
                     {weaponList}
                 </tbody>
             </table>
+            <NewWeaponForm weapons={weapons} setWeapons={setWeapons} setError={setError} />
         </div>
     );
 }
