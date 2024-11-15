@@ -1,16 +1,39 @@
 import React from "react";
 
 // Component the displays the view for a single target, along with a radio button to select the current target
-function TargetView({ target, targetId, clickHandler }){
+function TargetView(){
     // Returns the JSX for the individual target entry
     return (
         <tr>
-            <input className="form-check-input me-1" type="radio" name="activeTargetRadio" value={targetId} id={targetId} onClick={clickHandler}/>
-            <td>{target.name}</td>
-            <td>{target.toughness}</td>
-            <td>{target.save}+</td>
-            <td>{target.wounds}</td>
-            <td>{target.invul < 7? `${target.invul}+` : "-"}</td>
+            <td>
+                <input type="text" className="form-control" name="name" id="name"></input>
+            </td>
+            <td>
+                <input type="text" className="form-control" name="toughness" id="toughness"></input>
+            </td>
+            <td>
+                <select className="form-select" id="save" name="save">
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                    <option value="6">6+</option>
+                    <option value="7">7+</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" className="form-control" name="wounds" id="wounds"></input>
+            </td>
+            <td>
+                <select className="form-select" id="invul" name="invul">
+                    <option value="7">-</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                    <option value="6">6+</option>
+                </select>
+            </td>
         </tr>
     );
 }

@@ -24,15 +24,17 @@ function Homepage() {
     const [ error, setError ] = useState(null);
 
     useEffect(() => {
-        const staticWeapons = [
+        /*const staticWeapons = [
             new WeaponProfile("Boltgun", 8, 3, 2, 4, 0, 1),
             new WeaponProfile("Shoota", 18, 5, 2, 4, 0, 1)
         ];
-        setWeapons(staticWeapons);
-        const staticTargets = [
+        setWeapons(staticWeapons);*/
+        setWeapons([]);
+        /*const staticTargets = [
             new TargetProfile("Space Marine", 4, 3, 2)
         ];
-        setTargets(staticTargets);
+        setTargets(staticTargets);*/
+        setTargets([]);
     }, []);
 
     // Event handler for when the 'Fire!' button is clicked to initiate a simulation
@@ -40,21 +42,18 @@ function Homepage() {
         // Prevent the default action
         e.preventDefault();
         // Make sure we have a currently-selected weapon and target
-        if (currentWeaponNumber < 0 || currentTargetNumber < 0){
-            // Display an error if not weapons or targets are currently selected
-            setError(new Error("Please select both a weapon and a target"));
+        if (!weapons || weapons.length <= 0){
+            // Display an error if we don't have any weapons entered yet
+            setError(new Error("You need at least one weapon to fire."));
         } 
+        else if (!targets || targets.length <= 0){
+            // Display an error if we don't have any targets entered yet
+            setError(new Error("You need at least one target to shoot at."));
+        }
         // If we're good, let's go!
         else {
             // We clear any current errors
             setError(null);
-            // Grab the current weapon and target
-            const currentWeapon = weapons[currentWeaponNumber];
-            const currentTarget = targets[currentTargetNumber];
-            // Fire the weapon at the target
-            const attackResults = currentWeapon.shootAt(currentTarget);
-            // Update the results
-            setResults(attackResults);
         }
     };
 
@@ -76,7 +75,7 @@ function Homepage() {
             <h1>Welcome to the Firing Line!</h1>
             <div className="row">
                 <div className="col-5">
-                    <WeaponList weapons={weapons} setWeapons={setWeapons} weaponClickHandler={weaponClickHandler} setError={setError} />   
+                    <WeaponList weapons={weapons} setWeapons={setWeapons} fireButtonHandler={fireButtonHandler}/>
                 </div>
                 <div className="col-1">
                     <div className="row">
@@ -87,7 +86,7 @@ function Homepage() {
                     </div>
                 </div>
                 <div className="col-5">
-                    <TargetList targets={targets} setTargets={setTargets} targetClickHandler={targetClickHandler}/>   
+                    <TargetList targets={targets} setTargets={setTargets} />   
                 </div>
             </div>
             <div className="row">
